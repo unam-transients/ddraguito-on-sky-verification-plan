@@ -1,0 +1,1156 @@
+\documentclass{article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[utf8]{inputenc}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[dvipsnames]{xcolor} %may result in an error if you are using beamer with tikz. To go around it, include usenames and dvipsnames options when defining the document class, e.g. \documentclass[usenames,dvipsnames]{beamer}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.5}
+
+\usetikzlibrary{external}
+\tikzexternalize
+\tikzsetexternalprefix{tikzexternal/}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{amsmath,amsfonts,amssymb}
+\renewcommand{\baselinestretch}{1.0}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{color, colortbl}
+\usepackage{lscape}
+\usepackage{enumitem}
+%\usepackage{chngcntr}
+%\counterwithin{figure}{section}
+%\counterwithin{table}{section}
+\usepackage{booktabs,caption}
+\usepackage[flushleft]{threeparttable}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{\medskipamount}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{newtxtext,newtxmath}
+
+% Instead of the above, use this for arXiv:
+
+%\usepackage{txfonts}
+%\usepackage{textcomp}
+%\usepackage{eurosym}
+%\let\texteuro\euro
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\unit}[1]{\ensuremath{\mathrm{#1}}}
+\newcommand{\micron}{\mbox{\textmu m}}
+\renewcommand{\deg}{\mbox{deg}}
+\newcommand{\sqdeg}{\mbox{$\deg^2$}}
+\newcommand{\persqdeg}{\mbox{$\deg^{-2}$}}
+\newcommand{\arcmin}{\mbox{arcmin}}
+\newcommand{\sqarcmin}{\mbox{\arcmin$^2$}}
+\newcommand{\persqarcmin}{\mbox{\arcmin$^{-2}$}}
+\newcommand{\arcsec}{\mbox{arcsec}}
+\newcommand{\sqarcsec}{\mbox{\arcsec$^2$}}
+\newcommand{\persqarcsec}{\mbox{\arcsec$^{-2}$}}
+\newcommand{\sqmm}{\mbox{mm$^2$}}
+\newcommand{\deighty}{\ensuremath{d_{80}}}
+\newcommand{\Hs}{\mbox{$H_\mathrm{s}$}}
+\newcommand{\Ravg}{\mbox{$R_\mathrm{avg}$}}
+\newcommand{\Tavg}{\mbox{$T_\mathrm{avg}$}}
+\newcommand{\mm}{\mbox{mm}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\pagestyle{empty}
+
+\begin{center}
+
+{\Large \bfseries DDRAGUITO On-Sky Validation at OHP}
+
+\vspace{2cm}
+
+\begin{tabular}{ll}
+Prepared by:&Alan M. Watson (UNAM)\\
+&Rosalía Langarica (UNAM)\\
+&Jorge Fuentes-Fernández (UNAM)\\
+&Salvador Cuevas (UNAM)\\
+Reviewed by:&Stéphane Basa (LAM)\\
+&Samuel Ronayette (CEA)\\
+&Nathaniel R. Butler (ASU)\\
+Approved by:&Alan M. Watson\\
+%DDRAGO Reference:&Document 2\\
+COLIBRÍ Reference:&COLIBRI-UNAM-PL-7\\
+Version:&1.1\\
+Date:&5 November 2020\\
+\end{tabular}
+
+\vspace{\fill}
+
+COLIBRÍ Project\\
+Instituto de Astronom{\'\i}a\\
+Universidad Nacional Aut\'onoma de M\'exico
+
+\end{center}
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pagestyle{plain}
+
+\setcounter{tocdepth}{2}
+\tableofcontents
+\newpage
+
+%\listoffigures
+%\newpage
+
+%\listoftables
+%\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\clearpage
+\section*{Version History}
+
+\begin{itemize}
+\item Version 1.1 of 5 November 2020
+\begin{itemize}
+    \item Updated the schedule.
+    \item Added a test of the scattered light from the Moon.
+    \item Removed the Hartmann and Tokovinin-Heathcote tests at the field center. We will perform these with the OGSE during the telescope validation tests. We will still perform both tests over the field.
+    \item Added a test of the settling performance.
+    \item Added a test of the impact of detector vibrations.
+\end{itemize}
+
+\item Version 1.0 of 24 October 2020
+\begin{itemize}
+    \item Initial version.
+\end{itemize}
+\end{itemize}
+\clearpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Introduction}
+
+The document describes the on-sky verification of the DDRAGUITO instrument on the COLIBRÍ telescope at the Observatoire de Haute-Provence.
+
+We assume that prior to the verification procedures described here, the telescope will have been successfully verified according to the procedures in “COLIBRI-CEA-TP-2 Test Procedures for TAV at OHP” and the instrument will have been successfully integrated with the telescope and validated according to the procedures in “COLIBRI-UNAM-PL-12 DDRAGUITO AITV in France”.
+
+These procedures have three main aims: the validate the COLIBRÍ telescope optically; to validate the performance of the combination of the COLIBRÍ telescope and DDRAGUITO instrument; and to provide us with experience with the DDRAGUITO instrument as a prototype for the DDRAGO instrument.
+
+These procedures will largely be carried out remotely by the UNAM and ASU teams members working in collaboration with the OHP/LAM team, who will ensure the safety of the telescope. 
+
+The data acquisition for most of these tests will be carried out using TCS scripts. This is important for efficiency.
+
+The procedures are described in Section \ref{section:procedures} roughly in the order in which they will be carried out. The tools we will use are described in Section~\ref{section:tools}. An approximate schedule of the procedures is given in Section~\ref{section:schedule}.
+
+\section{Procedures}
+\label{section:procedures}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Environmental Limits}
+
+\subsubsection{Aim}
+
+Verify, to the extent that conditions permit, that the instrument fulfils its requirements on environmental conditions.
+
+\subsubsection{Procedure}
+
+Monitor the instrument and the environmental conditions. Note the range of conditions over which it performs correctly.
+
+\subsubsection{Product}
+
+A written report on the range of environmental conditions over which the instrument performs correctly.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Bias, Read Noise, and Dark Positional Behavior}
+
+\subsubsection{Aim}
+
+The aim of this procedure is to demonstrate that the detector bias and read noise are stable, well behaved, and within specification.
+
+\subsubsection{Procedure}
+
+We will take biases and darks at different pointings and derotator rotations, both with the telescope tracking and with it stationary.
+
+The positions will be: azimuths every 90 degrees over the full 540 degrees of azimuth (e.g., 45, 135, 225, {\ldots} degrees); altitudes of 30 and 60 degrees; and detector rotations at the nominal position and close to the extremes of the range. At each position we will take 10 biases with binning 1, 10 biases with binning 2, and three 60 second darks with binning 1.
+
+At each pointing we will form a local superbias and determine the read noise in DN. We will look for departures of the read noise from the expected values. We will examine the difference between each bias and the local superbias visually to attempt to detect coherent noise.
+
+We will form global superbiases in both binnings from all of the exposures. We will examine the difference between each local superbias and the global superbias visually to attempt to detect coherent noise.
+
+At each pointing we will form a local superdark. We will determine the median dark level in each image. We will form a global superdark from all of the darks. We will examine the difference between each local superdark and the global superdark to attempt to detect structure (e.g., light leaks).
+
+\subsubsection{Products}
+
+A written report giving the read noise at each position and indicating whether coherent noise was detected. A written report on the dark at each position and indication whether light leaks were detected.
+
+\subsubsection{Data Acquisition Time}
+
+8 minutes per set with 24 pointings and 3 derotation positions: total is 9.6 hours.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Pinhole Image of Pupil}
+
+\subsubsection{Aim}
+
+Obtain images of the pupil with a pinhole camera to determine sources of scattered light.
+
+\subsubsection{Procedure}
+
+Install the pinhole in a position TBD (probably between the filter wheel and L3).
+
+Take images of the daylight-illuminated tent. Examine them. Identify and quantify sources of scattered light outside the pupil.
+
+\subsubsection{Product}
+
+A written report describing the additional components of scattered light.
+
+\subsubsection{Data Acquisition Time}
+
+2 hours (during the day)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Dark Temporal Monitor}
+
+\subsubsection{Aim}
+
+The aim of this procedure is to demonstrate that the detector background (from dark current and light leaks) are stable, well-behaved, and within specification.
+
+\subsubsection{Procedure}
+
+On several nights we will take ten 1000 second dark exposures and ten biases at the parked position.
+
+For each night we will form a local superbias and and local superdark. We will measure the dark current (median, 99\%, 99.9\%, and 99.99\% values). We will visually inspect the superdarks for evidence of light leaks.
+
+\subsubsection{Products}
+
+A written report on the dark current for each night and indicating whether a light leak was detected.
+
+\subsubsection{Data Acquisition Time}
+
+3 hours per repetition.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Detector Temporal Monitor}
+
+\subsubsection{Aim}
+
+The aim of this procedure is to demonstrate that the detector bias, read noise, and temperature are stable, well behaved, and within specification.
+
+\subsubsection{Procedure}
+
+Each night we will take 10 biases at the parked position.
+
+For each night we form a local superbias and determine the read noise in DN. We will look for departures of the read noise from the expected values. We will examine the difference between each bias and the local superbias visually to attempt to detect coherent noise and changes in the bias pedestal.
+
+We will form global superbiases in both binnings from all of the exposures. We will examine the difference between each local superbias and the global superbias visually to attempt to detect coherent noise.
+
+We will monitor the temperature of the detector throughout the run. We will characterize its variation.
+
+\subsubsection{Products}
+
+A written report of the read noise for each night and indicating whether coherent noise was detected.
+
+A written report of the variation in the detector temperature during the run.
+
+\subsubsection{Data Acquisition Time}
+
+About 1 minute per repetition.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Determine Approximate Focus}
+
+\subsubsection{Aim}
+
+The aim of this procedure is to determine the approximate focus for the instrument prior to alignment of the detector.
+
+\subsubsection{Procedure}
+
+Track a field. 
+
+Take a 5 second exposures in the $y$ filter. Display each image. Adjust the focus and repeat until the images are approximately in focus in the center of the detector.
+
+\subsubsection{Product}
+
+A written report on position of M2 at which the detector is approximately in focus.
+
+\subsubsection{Data Acquisition Time}
+
+Less than 1 hour.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Determine Pointing Model}
+
+\subsubsection{Aim}
+
+The aim of this procedure is to determine, evaluate, and improve the pointing model.
+
+There are two technical possibilities for implementing the pointing model: in the TCS and in the mount controller. The project has decided to use the mount controller.
+
+\subsubsection{Procedure}
+
+Determine the pointing correction model by measuring and correcting the error at different pointings. 
+
+At each pointing, start tracking. Then take a 5 second exposures in the $i$ filter. Determine the coordinates of the center of the image using the astrometry.net software. Command the telescope to offset to correct the pointing. Repeat until the error is adequate, (see below for a discussion of what adequate means in this context). Command the mount to note the correction. 
+
+Once an adequate number of pointings have been added (again, see below for a discussion of what adequate means in this context), command the telescope to calculate the pointing solution.
+
+Command the telescope to install the model.
+
+Determine the empirical error in the pointing model by measuring the pointing error at different pointings.
+
+At each pointing, start tracking. Then take a 5 second exposures in the $i$ filter. Determine the coordinates of the center of the image using the astrometry.net software. Determine the pointing error. 
+
+Once an adequate number of pointings have been made, determine the empirical distribution of the pointing error (RMS error, median error, maximum error, and plot distribution of errors on the sky).
+
+It is likely that this procedure will need to be repeated several times. Initially, one might consider a pointing model derived from perhaps 10 points and with a target error of perhaps 30 arcsec. In subsequent iterations, one would increase the number of points to 20, 40, and 80 or more and attempt to reduce the error to 1 arcsec or better.
+
+\subsubsection{Product}
+
+A written report on the coefficients of the pointing solution and the empirical distribution of the error.
+
+\subsubsection{Data Acquisition Time}
+
+60 seconds per measurement (exposure, solve, offset, exposure, solve, verify, slew).
+
+20 minutes for a 20-point model. 2 hours for a 120-point model.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Pointing Model Temporal Monitor}
+
+\subsubsection{Aim}
+
+The aim of this procedure is to monitor the stability of the pointing model.
+
+\subsubsection{Procedure}
+
+Determine the empirical pointing model error using the procedure described above and a grid of 40 points at fixed positions. By this, we mean that we command the telescope to a fixed position, start tracking, and then take the exposure.
+
+Determine the empirical distribution of the error, both across the sky at a single time and at each point over time.
+
+\subsubsection{Product}
+
+A written report showing the temporal behaviour of the measures of the empirical distribution of the error and including plots of the errors at each point as a function of time.
+
+\subsubsection{Data Acquisition Time}
+
+30 seconds per measurement (exposure, slew).
+
+20 minutes for a 40 points.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Align Detector}
+
+\subsubsection{Aim}
+
+Adjust the inclination of the detector so that it coincides with the mean focal plane of the telescope.
+
+This procedure needs to be carried out on sky, as it cannot practically be carried out in the laboratory.
+
+\subsubsection{Procedure}
+
+To determine the focus over the field, track at a TBD position in the sky with the derotator roughly to the middle of its range, take a series of 5 second exposures in $y$ at different M2 positions. Select about 16 stars at different positions in the field, roughly in a $4\times4$ grid. For each star, determine the best focus by measuring the FWHM and fitting a parabola of FWHM against M2 position to determine the minimum. Fit the focus position as a linear function of $x$ and $y$ position on the detector.
+
+Adjust the tip-tilt screws on the CCD optical support (OMBD) to bring the detector closer to the optical focal plane. Turn the bolts in such a way as the keep the center approximately fixed (i.e., make sure that for each adjustment CW and CCW adjustments are balanced).
+
+Iterate determination and adjustment until the focal plane is aligned to within TBD.
+
+\subsubsection{Product}
+
+The detector will be aligned with the optical focal plane at the selected position and rotation. A written report on the procedure and its results.
+
+\subsubsection{Data Acquisition Time}
+
+One or two nights. This will require close interaction between the UNAM team (data acquisition and analysis) and the OHP/LAM team (adjustment of the detector alignment bolts).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Determine Detector Alignment Positional Behavior}
+
+\subsubsection{Aim}
+
+Determine the disalignment of the detector as a function of position.
+
+\subsubsection{Procedure}
+
+At 8 different pointings (every 90 degrees from 45 degrees azimuth and at 30 and 60 degrees of elevation) and different rotations (nominal and both extremes), determine the inclination of the detector as described above.
+
+Determine the distribution of the fit coefficients and the focus variation over the detector. Compare this to the TBD requirement in the image quality budget.
+
+\subsubsection{Product}
+
+A written report showing the distribution of focus variation over the detector and a comparison of this to the image quality requirement.
+
+\subsubsection{Data Acquisition Time}
+
+3 minutes per position. For 8 positions and three rotations, 1.2 hours.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Determine the Center of Rotation}
+
+\subsubsection{Aim}
+
+Determine the intersection of the derotator mechanical axis and the detector.
+
+\subsubsection{Procedure}
+
+Point at a position. Take 5 second images in $i$ at different detorator angles.
+
+Measure the $x$ and $y$ coordinates of a dozen stars in the images. Fit the data for the common rotation center and rotation angle of each image.
+
+\subsubsection{Product}
+
+A written report on the position of the center of rotation on the detector.
+
+\subsubsection{Data Acquisition Time}
+
+5 minutes
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Detector Orientation}
+
+\subsubsection{Aim}
+
+Determine the relation between the orientation on the sky and the derotator angle.
+
+\subsubsection{Procedure}
+
+From the data for one of the pointing model monitors, solve the astrometry of each image using the astrometry.net software. Determine the position angle of the columns of the CCD.
+
+If the position angle is significantly offset from the cardinal directions, adjust the derotator model in the control system, and repeat.
+
+\subsubsection{Product}
+
+A written report on the offset between the position angle of the detector columns and the appropriate cardinal direction.
+
+\subsubsection{Data Acquisition Time}
+
+Reuse other data.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Focus Positional Stability}
+
+\subsubsection{Aim}
+
+Demonstrate stability of focus over the sky and at a range of rotations.
+
+\subsubsection{Procedure}
+
+Track at 32 pointings dispersed over the sky (every 45 degrees in azimuth from 0 degrees and elevations of 20, 40, 60, and 80 degrees). At each pointing, offset to a close TBD magnitude star from the Tycho-2 catalog.
+
+At each pointing, focus M2 on the center of the detector using 5 second images in $y$. Before and after each pointing, focus M2 on the center of the detector just to the west of the zenith using 5 second images in $y$. (We often use “just west of the zenith” as a reference position. The choice of the zenith is fairly obvious. The choice of west is so that we do not have to worry about the telescope tracking into the zenith limit.)
+
+Determine the variation in the focus as a function of position. Use the focus measurements just to the west of zenith to control for variations in temperature. Determine the distribution of the focus variation and its measures (1$\sigma$ value and fractions within $\pm1\sigma$, $\pm2\sigma$, and $\pm3\sigma$). Compare these to the TBD requirement in the image quality budget.
+
+\subsubsection{Product}
+
+A written report showing the distribution of focus variation with position and comparing of this to the image quality requirement.
+
+\subsubsection{Data Acquisition Time}
+
+5 minutes per focus run with 32 pointings, so 2.7 hours in total.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Focus Wavelength Stability}
+
+\subsubsection{Aim}
+
+Determine the focus dependence on wavelength (filter).
+
+\subsubsection{Procedure}
+
+Track on a TBD magnitude star from the Tycho-2 just to the west of the zenith. Cycle through the filters in a sequence $yzirggrizy$. In each filter, focus M2 on the center of the detector using 5 second images.
+
+Repeat this 5 times.
+
+Determine the mean focus offset of each filter and the error in the mean. Evaluate if there are significant offsets.
+
+If there are significant offsets (there should not be), consider repeating with $B$, $gri$, and $zy$.
+
+\subsubsection{Product}
+
+A written report showing the mean focus offset in the $grizy$ filters and the error in the mean.
+
+\subsubsection{Data Acquisition Time}
+
+5 minutes per focus run with 5 filters each focused twice and 5 repetitions, so 4.2 hours in total.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\subsection{Hartmann Tests at Field Center}
+%
+%\subsubsection{Aim}
+%
+%Determine the aberrations at the field center and over a range of rotations and wavelengths using Hartmann tests.
+%
+%\subsubsection{Procedure}
+%
+%During the day, confirm the sense of M2 movements by pointing the telescope at the horizon, moving M2, and determining if it moves towards M1 or away from M1. If this information is available from previous testing, this can be skipped.
+%
+%Mount the Hartmann mask.
+%
+%Track on a TBD magnitude star from the Tycho-2 catalog just to the west of the zenith. Center the start on the detector. Obtain images TBD inside and outside of focus in the $grizy$ filters. Analyse the images with our software. Repeat at a range of derotator rotations.
+%
+%Repeat this 5 times.
+%
+%Determine the mean aberration coefficients up to spherical aberration in each filter and at each rotation. Evaluate if there are significant aberrations and significant variations with wavelength and rotation. Evaluate if the measured aberrations are consistent with the as-built model.
+%
+%\subsubsection{Product}
+%
+%A written report showing the mean aberration coefficients as a function of filter and rotation, indicating whether the aberrations and their variations are significant, and indicating whether the aberrations are consistent with the as-built model. 
+%
+%\subsubsection{Data Acquisition Time}
+%
+%2 hours to tune the procedure.
+%
+%Then 2 minutes per test, with five filters and five repetitions, so a total of about 1 hour.
+%
+%Note that our experience with other telescopes is that the time for both Hartmann and Tokovinin-Heathcote tests is dominated by M2 motion. After tuning the test, we will reevaluate the estimated data acquisition time.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\subsection{Tokovinin-Heathcote Tests at Field Center}
+%
+%\subsubsection{Aim}
+%
+%Determine the aberrations at the field center and over a range of rotations and wavelengths using Tokovinin-Heathcote “donut” tests. 
+%
+%This allows us to validate this method by direct comparison to the Hartmann tests mentioned above. This is important since the Tokovinin-Heathcote test can be used to determine the aberrations of the telescope when it is in service, without having to mount the Hartmann mask. We believe this validation is important, because while we have implemented Hartmann tests on four different telescopes recently, we have only implemented Tokovinin-Heathcote tests on one.
+%
+%\subsubsection{Procedure}
+%
+%Prior to the test, measure the optical diameter of M1 the diameter of the M2 obscuration.
+%
+%Remove the Hartmann mask if it is installed.
+%
+%Track on a TBD magnitude star from the Tycho-2 catalog just to the west of the zenith. Center the start on the detector. Obtain images TBD inside and outside of focus in the $grizy$ filters. Analyse the images with our software. Repeat at a range of derotator rotations.
+%
+%Repeat this 5 times.
+%
+%Determine the mean aberration coefficients up to spherical aberration in each filter and at each rotation. Evaluate if the measurements are consistent with the Hartmann tests.
+%
+%\subsubsection{Product}
+%
+%A written report giving the mean aberration coefficients as a function of filter and rotation. Indications of whether the aberrations are consistent with those measured in the Hartmann tests. 
+%
+%\subsubsection{Data Acquisition Time}
+%
+%2 hours to tune the procedure.
+%
+%Then 2 minutes per test, with five filters and five repetitions, so a total of about 1 hour.
+%
+%Note that our experience with other telescopes is that the time for both Hartmann and Tokovinin-Heathcote tests is dominated by M2 motion. After tuning the test, we will reevaluate the estimated data acquisition time.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Hartmann Tests Over the Field}
+
+\subsubsection{Aim}
+
+Determine the aberrations over the field and over a range of rotations and wavelengths using Hartmann tests.
+
+\subsubsection{Procedure}
+
+Mount the Hartmann mask.
+
+Track on a TBD magnitude star from the Tycho-2 catalog just to the west of the zenith. Obtain images TBD inside and outside of focus in the $grizy$ filters. Analyse the images with our software. Repeat at a range of derotator rotations.
+
+Repeat this 5 times.
+
+Repeat over a $3\times3$ grid of field positions stretched over the field. Since the Hartmann test requires defocus, it will not be able to evaluate these into the very corners of the field.
+
+Determine the mean aberration coefficients up to spherical aberration at each position, in each filter, and at each rotation. Evaluate if there are significant aberrations and significant variations with wavelength and rotation. Evaluate if the measured aberrations are consistent with the as-built model.
+
+\subsubsection{Product}
+
+A written report showing the mean aberration coefficients as a function of position, filter, and rotation, indicating whether the aberrations and their variations are significant, and indicating whether the aberrations are consistent with the as-built model. 
+
+\subsubsection{Data Acquisition Time}
+
+2 hours to tune the procedure.
+
+Then 2 minutes per test, with 9 grid points, 5 filters, and 5 repetitions, so a total of about 9.5 hours.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Tokovinin-Heathcote Tests Over the Field}
+
+\subsubsection{Aim}
+
+Determine the aberrations over the field and over a range of rotations and wavelengths using Tokovinin-Heathcote “donut” tests.
+
+Since the Tokovinin-Heathcote test requires less defocus than a Hartmann test, it should be possible to make the inner 9 points of this test coincide with the 9 points of the previous Hartmann test and have the outer 16 points be closer to the field edge.
+
+\subsubsection{Procedure}
+
+Prior to the test, measure the optical diameter of M1 the diameter of the M2 obstruction.
+
+Remove the Hartmann mask if it is installed.
+
+Track on a TBD magnitude star from the Tycho-2 catalog just to the west of the zenith. Obtain images TBD inside and outside of focus in the $grizy$ filters. Analyse the images with our software. Repeat at a range of derotator rotations.
+
+Repeat this 5 times.
+
+Repeat over a $5\times5$ grid of field positions stretched over the field.
+
+Determine the mean aberration coefficients up to spherical aberration at each position, in each filter, and at each rotation. Evaluate if there are significant aberrations and significant variations with wavelength and rotation. Evaluate if the measured aberration at the inner 9 points are consistent with the previous Hartmann tests. Evaluate if the measured aberrations are consistent with the as-built model.
+
+\subsubsection{Product}
+
+A written report showing the mean aberration coefficients as a function of position, filter, and rotation, indicating of whether the aberrations and their variations are significant, and indicating whether the aberrations are consistent with the as-built model and the previous Hartmann tests.
+
+\subsubsection{Data Acquisition Time}
+
+2 hours to tune the procedure.
+
+Then 2 minutes per test, with 25 grid points, 5 filters, and 5 repetitions, so a total of about 23 hours.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Detector Vibrations}
+
+\subsubsection{Aim}
+
+Determine if the vibrations generated by the cooling system of the DDRGUITO CCD (a Brooks Polycold Compact Cooler) have an impact on image quality. 
+
+\subsubsection{Procedure}
+
+This test should be carried out on a night with relatively good seeing.
+
+Track a TBD magnitude star just to the west of the zenith.
+
+Focus carefully. Take a ten 1 second exposures with the cooler on. Turn the cooler off. Wait 10 seconds for any vibrations to damp. Then take ten 1 second exposures with the cooler off. Turn the cooler back on and wait for the detector temperature to stabilize again.
+
+Repeat several times.
+
+Measure the FWHM of the images and look for a significant difference between the FWHM with the cooler on and the FWHM with the cooler off.
+
+\subsubsection{Product}
+
+A written report showing the FWHMs and discussing whether there is a significant difference.
+
+\subsubsection{Data Acquisition Time}
+
+One hour.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Scale and Distortion Positional Stability}
+
+\subsubsection{Aim}
+
+Determine the scale and distortion in as a function of wavelength. Determine stability at different pointings.
+
+\subsubsection{Procedure}
+
+At each of TBD pointings, take 5 second images in each of the $grizy$ filters and at a range of derotator rotations. 
+
+Repeat the above 5 times.
+
+For each image, solve for the scale at the field center and the distortions over a $9\times9$ grid using the astrometry.net software. Determine empirical errors in these.
+
+Determine if there are significant variations in the scale and distortion as a function of wavelength, position, and rotation. Compare these to the results expected from the as-built optical design.
+
+\subsubsection{Product}
+
+A written report showing the mean scale at the field center and the mean distortion as a function of wavelength and indicating whether these are consistent with the as-built optical design.
+
+\subsubsection{Data Acquisition Time}
+
+2 minutes per pointing, 9 pointings, three rotations, and 5 repetitions, so a total of about 4.5 hours.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Scale and Distortion Monitor}
+
+\subsubsection{Aim}
+
+The aim of this procedure is to monitor the stability of the scale and the distortion.
+
+\subsubsection{Procedure}
+
+Each night, when possible, for 6 pointings (just west of zenith, just east of zenith, and 45 degrees north, east, south, and west of the zenith), take 5 second images in each of the $grizy$ filters.
+
+For each image, solve for the scale at the field center and the distortions over a $9\times9$ grid using the astrometry.net software.
+
+Determine the empirical distribution of the scale and distortion at each point over time and its measures (mean, standard deviation, 90\% confidence interval). Evaluate whether there are significant changes. Produce temporal plots of the scales and distortions.
+
+\subsubsection{Product}
+
+A written report showing the temporal behaviour of the measures of the empirical distribution of the error. 
+
+\subsubsection{Data Acquisition Time}
+
+2 minutes per pointing and 6 pointings, so a total of about 0.2 hours.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Determine Shutter Shading}
+
+\subsubsection{Aim}
+
+Determine the shutter-shading correction (i.e., the difference between the actual exposure time and the commanded exposure time as a function of position on the detector).
+
+\subsubsection{Procedure}
+
+Carry out this test at night, with little variation in the moon illumination (e.g., without clouds passing in front of the moon). Illuminate the inside of the tent with a lamp. The lamp will not be stabilized, so it should be allowed to warm up for at least 10 minutes.
+
+Experiment with the illumination and the filter so that one can obtain a reasonable exposure in 10 seconds.
+
+Take TBD sequences of exposures of 1, 2, 2, and 1 seconds. This sequence mitigates illumination variations.
+
+Correct each image for the bias.
+
+For each sequence, we will designate the images by $A_1B_1B_2A_2$.
+Form the image $(A_1+A_2)/(B_1+B_2-A_1-A_2)/2$. The values in this image are the actual exposure times in a 1 second images as a function of field position. The logic here is that the 1 second exposures have shutter shading, but the difference between the 1 and 2 second exposures do not have shutter shading. Subtract 1 from this image to obtain the shutter sharing correction. Smooth this image.
+
+Repeat, averaging the smoothed images, until the empirical error on the mean smoothed shutter shading correction is less than 1 ms.
+
+\subsubsection{Product}
+
+A FITS image of the mean smoother shutter shading correction.
+
+A written report on the procedure and its result.
+
+\subsubsection{Data Acquisition Time}
+
+2 hours (mainly getting the lamp right).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Detector Light Transfer Test}
+
+\subsubsection{Aim}
+
+Measure the detector read noise, gain, and linearity.
+
+\subsubsection{Procedure}
+
+Carry out this test at night, with little variation in the moon illumination (e.g., without clouds passing in front of the moon). Illuminate the inside of the tent with a lamp. The lamp will not be stabilized, so it should be allowed to warm up for at least 10 minutes.
+
+Perform a light transfer test. Observe the inside of the tent, and take a series of pairs of exposures with increasing exposure times, with a constant-length monitor exposure in between the increasing exposures. For example: 5, 0, 5, 0, 5, 1, 5, 1, 5, 2, 5, 2, 5, 3, 5, 3, 5, 4, 5, 4, \ldots. We will have to experiment with the illumination and filter, but the aim is to take 30 stepped exposures and reach saturation in about 30 seconds.
+
+Subtract the super bias from each image. Apply the shutter-shading correction.
+
+Determine the mean level in and the noise between each pair of exposures. Plot the noise against mean level. Fit a line, and use this to determine the gain and the read noise.
+
+Correct the mean levels according to the levels in the adjacent monitor exposures. Plot the corrected mean level against the exposure time. Fit a line. Look for deviations from a straight line as evidence of non-linearity.
+
+The analysis should be performed for each quadrant separately.
+
+\subsubsection{Product}
+
+A written report on the detector read noise, gain, and linearity.
+
+\subsubsection{Data Acquisition Time}
+
+1 hour.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Photometric Transformations and System Efficiency}
+
+\subsubsection{Aim}
+
+Determine transformations from standard to instrumental magnitudes. Determine throughput in the individual $grizy$ filters.
+
+\subsubsection{Procedure}
+
+This procedure should be carried out on a photometric night.
+
+Observe fields at a range of airmasses in $grizy$. Use $6 \times 10$ seconds per filter. Use the pipeline to determine the zeropoints for each star, comparing to Pan-STARRS1 photometry. Fit the zeropoints for color terms, airmass terms, and airmass-color terms.
+
+We will determine the forward transformations from standard to instrumental magnitudes in terms of multiple colors, which allows them to be inverted to determine the reverse transformation from instrumental to standard magnitudes.
+
+Repeat in the $B$ and wide $gri$ and $zy$ filters (which will require changing the filters, presumably during the day).
+
+We do not expect airmass-color terms in the narrower filters, but might see them in the wider $gri$ filter.
+
+Once the transformations have been determined, determine the zeropoints at zero color in each image. Plot the zeropoint against airmass, fit a line, and extrapolate to an airmass of zero. Use the extrapolated zeropoints to estimate the efficiency of the hardware (telescope and instrument) in each filter based on the measured filter curves.
+
+\subsubsection{Product}
+
+A table showing the transformation coefficients.
+
+A table showing the measured mean efficiencies.
+
+A written report on the procedure.
+
+\subsubsection{Data Acquisition Time}
+
+2 minutes per filter with 5 filters ($grizy$) and 5 airmasses: 1 hours.
+
+2 minutes per filter with 3 filters ($B$, $gri$, $zy$) and five airmasses: 0.5 hour.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Scattered Light from a Bright Star}
+
+\subsubsection{Aim}
+
+Determine whether bright stars in or outside the field produce scattered light or ghost images.
+
+\subsubsection{Procedure}
+
+Take 60 second TBC images of a bright star just to the west of the zenith at the field center and every 5 arcmin north, east, south, and west to a distance of 1 degree.
+
+Examine the images. Look for evidence of scattered light and ghosts.
+
+\subsubsection{Product}
+
+A written report on the scattered light and ghosts.
+
+\subsubsection{Data Acquisition Time}
+
+90 seconds per image and 100 images, so 2.5 hours in total.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Scattered Light from the Moon}
+
+\subsubsection{Aim}
+
+Determine whether the Moon outside the field produce scattered light or ghost images.
+
+\subsubsection{Procedure}
+
+Take 60 second TBC images of fields close to the Moon, every 5 degree north, east, south, and west to a distance of 60 degrees.
+
+Examine the images. Look for evidence of scattered light.
+
+\subsubsection{Product}
+
+A written report on the scattered light and ghosts.
+
+\subsubsection{Data Acquisition Time}
+
+90 seconds per image and 48 images, so 1.2 hours in total.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Flat Field Variation}
+
+\subsubsection{Aim}
+
+Determine flat field as a function of rotation and filter.
+
+\subsubsection{Procedure}
+
+Over a series of nights, take twilight flats away from the Sun (in the east at evening and in the west in the morning) at 45 degrees zenith distance in different filters and at different derotator rotations.
+
+Characterize the spatial variation in the flat fields in each filter as a function of filter (P-V, RMS) compared to the mean.
+
+\subsubsection{Product}
+
+A written report on the spatial variation in the flat fields in each filter as a function of filter (P-V, RMS) and giving images that show the variation compared to the mean.
+
+\subsubsection{Data Acquisition Time}
+
+Data taken in twilight.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Flat Field Temporal Monitor}
+
+\subsubsection{Aim}
+
+Determine the temporal stability of the flat fields.
+
+\subsubsection{Procedure}
+
+Over the run, take twilight flats away from the Sun (in the east at evening and in the west in the morning) at 45 degrees zenith distance in different filters and at the same derotator rotation.
+
+Characterize the temporal variation in the flat fields in each filter as a function of wavelength (P-V, RMS) compared to the mean.
+
+\subsubsection{Product}
+
+A written report on the temporal variation in the flat fields in each filter as a function of filter (P-V, RMS) and including images that show the variation compared to the mean.
+
+\subsubsection{Data Acquisition Time}
+
+Data taken in twilight.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Photometric Stability Positional Behaviour}
+
+\subsubsection{Aim}
+
+Determine the stability of photometry as a function of field position and derotator rotation.
+
+\subsubsection{Procedure}
+
+Observe fields just to the west of the zenith in different filters. At each position, obtain $8 \times 60$ second in each filter with dithering. Reduce the data with the pipeline. Look for spatial variations in the instrumental zeropoint.
+
+Repeat at different derotator rotations. Look for differences in the spatial variations in the instrument zeropoint with rotation.
+
+\subsubsection{Product}
+
+A written report on the variations.
+
+\subsubsection{Data Acquisition Time}
+
+10 minutes per filter, with 5 filters and 3 rotations, so a total of about 2.5 hours.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Photometric Exposure Time Linearity}
+
+\subsubsection{Aim}
+
+Determine the linearity of the photometry as a function of exposure time.
+
+\subsubsection{Procedure}
+
+Observe fields just to the west of the zenith. At each field, take 5 second, 10 second, 20 second, 40 second, and 60 second exposures with dithering in $r$. For each exposure time, take sufficient exposures to have 640 seconds of exposure (the equivalent of $8 \times 60 second$).
+
+Reduce the data with the pipeline. Verify that the relative photometry of bright and faint stars is independent of exposure time. Verify that the instrumental zero points are independent of exposure time.
+
+\subsubsection{Product}
+
+A written report on the dependence of the relative photometry and the instrumental zero points on exposure time.
+
+\subsubsection{Data Acquisition Time}
+
+800 seconds per exposure time (more for shorter exposures and less for longer exposures) with 5 exposures times, so a total of 1.5 hours.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Photometric Magnitude Linearity}
+
+\subsubsection{Aim}
+
+Determine the linearity of the photometry as a function of magnitude.
+
+\subsubsection{Procedure}
+
+Observe fields just to the west of the zenith. At each field, take $8 \times 60 second$ exposures with dithering in $r$
+
+Reduce the data with the pipeline. Verify that the relative photometry of bright and faint stars is in agreement with the catalog values.
+
+\subsubsection{Product}
+
+A written report on the dependence of the photometry on magnitude.
+
+\subsubsection{Data Acquisition Time}
+
+Re-used data from the “Photometric Exposure Time Linearity” test.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Settling Performance}
+
+\subsubsection{Aim}
+
+Demonstrate the telescope settles adequately after a slew and before the first exposure.
+
+\subsubsection{Procedure}
+
+Slew to track in different positions. Once the slew has finished, take five 1 second exposures in rapid succession. Examine the images for evidence of image motion.
+
+\subsubsection{Product}
+
+A written report on the settling performance.
+
+\subsubsection{Data Acquisition Time}
+
+Five minutes per field with 10 fields, so 1 hours in total.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Tracking Performance}
+
+\subsubsection{Aim}
+
+Demonstrate the long-exposure tracking performance.
+
+\subsubsection{Procedure}
+
+Track different fields for one hour each. While tracking, take exposures every 5 seconds. Determine the drift on the detector.
+
+\subsubsection{Product}
+
+A written report on the tracking performance.
+
+\subsubsection{Data Acquisition Time}
+
+One hour per field with 10 fields, so 10 hours in total.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Deep Exposure Performance}
+
+\subsubsection{Aim}
+
+Demonstrate deep exposure performance.
+
+\subsubsection{Procedure}
+
+Observe fields just to the west of the zenith. At each field, take $64 \times 60 second$ exposures with dithering. Repeat in each filter.
+
+Reduce the data with the pipeline. Determine the limiting magnitude. Verify this in comparison to the measured zeropoints and the empirical PSF.
+
+\subsubsection{Product}
+
+A written report on the limiting magnitude and a discussion of any unexpected behaviour.
+
+\subsubsection{Data Acquisition Time}
+
+1.2 hours per filter with 5 filters, so a total of 6 hours.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Tools}
+\label{section:tools}
+
+\subsection{Hartmann Mask}
+
+OHP/LAM has fabricated a Hartmann mask to a design by Samuel Ronayette of CEA.
+
+\subsection{Lamp}
+
+We will require OHP/LAM to provide a lamp to illuminate the inside of the tent for the light-transfer test and shutter-shading test. The lamp does not need to be stabilized, since we will use monitor exposures or ABBA sequences to remove variations.
+
+\subsection{Pinhole}
+
+We will provide a pinhole mounted on a piece of cardboard to be installed between the filter wheel and L3 (TBC). This will be used to image the pupil.
+
+\subsection{Hartmann Test Analysis Software}
+
+We have software to analyse the Hartmann tests. This software has been previously used at the OAN to analyse the 84-cm, COATLI (both old and new optics), DDOTI, and SAINT-EX telescopes.
+
+\subsection{Tokovinin-Heathcote Test Analysis Software}
+
+We have software to analyse the Tokovinin-Heathcote tests. This software has been previously used at the OAN to analyse the COATLI telescope and, indeed, to measure the coma quantitatively during alignment process. Its results have been confirmed on COATLI by comparison to a Hartmann test.
+
+\subsection{Astrometry.net}
+
+We will use a local installation of the astrometry.net software to determine the scale and distortion.
+
+\subsection{Astropy, imexam, and DS9}
+
+For routine analysis we will use Astropy and in particular the imexam package (a replacement for the IRAF imexam task) with DS9.
+
+\subsection{IRAF and DS9}
+
+IRAF and DS9 are still very useful and familiar tools. Unfortunately, IRAF does not run on the latest version of macOS (“Catalina”) which is installed on Watson's main computer. Therefore, Watson will install the the previous version of macOS (“Mojave”) on a Mac mini and use this when required.
+
+\subsection{Pipeline}
+
+The pipeline will be used to to reduce, align, sky-subtract, coadd, produce photometry, and calibrate images. This pipeline is in routine use at RATIR, COATLI, and DDOTI. To expedite its adaptation to DDRAGUITO, it will be important to obtain example data soon after the instrument is aligned.
+
+\section{Schedule}
+\label{section:schedule}
+
+Table~\ref{table:schedule} presents an idealized schedule for the procedures. Roughly, the first 4 nights are verification and alignment of the instrument, the next six nights are optical tests of the telescope, and the last three nights are characterization and performance tests of the telescope and instrument.
+
+This is idealized, since it assume that we will have no interruptions from the weather, that we encounter no problems that require solution, and that we can keep up with the data analysis, and that team members are available every day/night. Reality will be different, and I would expect the procedures will take about twice as long. Thus, we expect we will require about one month of real time.
+
+The “Pinhole Image of the Pupil” procedure can be carried out during the day. It would probably be convenient to do this early in the schedule.
+
+The various flat-field procedures will obviously be carried out in twilight.
+
+We will attempt to carry out the “Detector Temporal Monitor” and the “Scale and Distortion Monitor” each night, since they are short. 
+
+We will attempt to carry out the “Dark Temporal Monitor” on several nights. This test can be carried out with the telescope closed, so it is good test for the end of the night (as this allows the OHP/LAM team to withdraw sooner).
+
+\begin{table}
+\caption{An Approximate Schedule for the Procedures.}
+\label{table:schedule}
+\centering
+\footnotesize
+\begin{tabular}{crp{8cm}}
+\hline
+Night&Hours&Procedure\\
+\hline
+1&0.0&Detector Temporal Monitor\\
+ &9.6&Bias, Read Noise, and Dark Positional Behavior\\
+\hline
+2&0.0&Detector Temporal Monitor\\
+ &1.0&Determine Approximate Focus\\
+ &2.0&Determine Pointing Model\\
+ &3.0&Dark Temporal Monitor\\
+\hline
+3&0.0&Detector Temporal Monitor\\
+ &10.0&Align Detector\\
+\hline
+4&0.0&Detector Temporal Monitor\\
+ &10.0&Align Detector\\
+\hline
+5&0.0&Detector Temporal Monitor\\
+ &1.2&Determine Detector Alignment Positional Behavior\\
+ &0.1&Determine the Center of Rotation\\
+ &2.0&Determine Pointing Model\\
+ &0.3&Pointing Model Stability Monitor\\
+ &2.7&Focus Positional Stability\\
+ &1.0&Settling Performance\\
+ &3.0&Dark Temporal Monitor\\
+\hline
+6&0.0&Detector Temporal Monitor\\
+ &4.2&Focus Wavelength Stability\\
+ &4.5&Scale and Distortion Positional Stability\\
+\hline
+7&0.0&Detector Temporal Monitor\\
+ &9.5&Hartmann Tests over the Field\\
+\hline
+8&0.0&Detector Temporal Monitor\\
+ &0.2&Scale and Distortion Monitor\\
+ &9.0&Tokivinin-Heathcote Tests over the Field (1 of 3)\\
+\hline
+9&0.0&Detector Temporal Monitor\\
+ &0.2&Scale and Distortion Monitor\\
+ &9.0&Tokivinin-Heathcote Tests over the Field (2 of 3)\\
+\hline
+10&0.0&Detector Temporal Monitor\\
+  &0.2&Scale and Distortion Monitor\\
+  &5.0&Tokivinin-Heathcote Tests over the Field (3 of 3)\\
+  &3.0&Dark Temporal Monitor\\
+\hline
+11&2.0&Determine Shutter Shading\\
+  &1.0&Detector Light-Transfer Test\\
+  &1.0&Photometric Transformations and System Efficiency ($grizy$)\\
+  &2.0&Scattered Light from a Bright Star\\
+  &1.2&Scattered Light from the Moon\\
+  &2.5&Photometric Stability Positional Behavior\\
+  &0.2&Scale and Distortion Monitor\\
+\hline
+12&0.0&Detector Temporal Monitor\\
+  &0.2&Scale and Distortion Monitor\\
+  &1.0&Detector Vibrations\\
+  &1.5&Photometic Exposure Time Linearity\\
+  &6.0&Tracking Performance (1 of 2)\\
+\hline
+13&0.0&Detector Temporal Monitor\\
+  &0.2&Scale and Distortion Monitor\\
+  &4.0&Tracking Performance (2 of 2)\\
+  &6.0&Deep Exposure Performance\\
+\hline
+\end{tabular}
+\end{table}
+
+\end{document}
